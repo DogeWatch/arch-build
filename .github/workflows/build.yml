@@ -8,9 +8,10 @@ on:
 
 jobs:
   buildPKGBUILD:
+    permissions: write-all
     strategy:
       matrix:
-        PKGBUILDS: [openssl-3.0]
+        PKGBUILDs: [openssl-3.0]
       fail-fast: false
 
     runs-on: ubuntu-latest
@@ -24,10 +25,13 @@ jobs:
         with:
           pkgdir: ${{ matrix.PKGBUILDs }}
           aurDeps: true
+
+      - name: Zip directory
+        run: zip ${{ matrix.PKGBUILDs }}.zip ./* -r
           
       - uses: actions/upload-artifact@v3
         with:
-          path: ./*/*.pkg.tar.zst
+          path: ${{ matrix.PKGBUILDs }}.zip
           name: ${{ matrix.PKGBUILDs }}
           if-no-files-found: error
       
