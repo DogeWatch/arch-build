@@ -28,12 +28,6 @@ jobs:
 
       - name: Zip directory
         run: zip ${{ matrix.PKGBUILDs }}.zip ./* -r
-          
-      - uses: actions/upload-artifact@v3
-        with:
-          path: ${{ matrix.PKGBUILDs }}.zip
-          name: ${{ matrix.PKGBUILDs }}
-          if-no-files-found: error
       
       - uses: ncipollo/release-action@v1
         with:
