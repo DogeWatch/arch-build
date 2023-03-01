@@ -39,5 +39,5 @@ jobs:
         with:
           allowUpdates: true
           tag: "packages"
-          artifacts: ${{ steps.makepkg.outputs.pkgfile0 }}
+          artifacts: ${{ matrix.PKGBUILDs }}.zip
           token: ${{ secrets.GITHUB_TOKEN }}
