@@ -1,0 +1,39 @@
+name: BUILD
+
+
+on:
+  push:
+    branches: [main]
+
+
+jobs:
+  buildPKGBUILD:
+    strategy:
+      matrix:
+        PKGBUILDS: [openssl-3.0]
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build Non-AUR packages
+        id: makepkg
+        uses: ./build-pkgbuild-action
+        with:
+          pkgdir: ${{ matrix.PKGBUILDs }}
+          aurDeps: true
+          
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./*/*.pkg.tar.zst
+          name: ${{ matrix.PKGBUILDs }}
+          if-no-files-found: error
+      
+      - uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          tag: "packages"
+          artifacts: ${{ steps.makepkg.outputs.pkgfile0 }}
+          token: ${{ secrets.GITHUB_TOKEN }}
