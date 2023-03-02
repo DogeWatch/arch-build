@@ -12,7 +12,7 @@ jobs:
     permissions: write-all
     strategy:
       matrix:
-        PKGBUILDs: [openssl-3.0, ace]
+        PKGBUILDs: [openssl-3.0, ace, openssl-3.0, ace, openssl-3.0, ace, openssl-3.0, ace, openssl-3.0, ace, openssl-3.0, ace, openssl-3.0, ace, openssl-3.0, ace, openssl-3.0, ace, openssl-3.0, ace, openssl-3.0, ace]
       fail-fast: false
 
     runs-on: ubuntu-latest
