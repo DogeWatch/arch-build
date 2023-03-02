@@ -3,7 +3,8 @@ name: BUILD
 
 on:
   push:
-    branches: [main]
+    branches:
+      - '**'
 
 
 jobs:
@@ -11,7 +12,7 @@ jobs:
     permissions: write-all
     strategy:
       matrix:
-        PKGBUILDs: [openssl-3.0]
+        PKGBUILDs: [openssl-3.0, ace]
       fail-fast: false
 
     runs-on: ubuntu-latest
