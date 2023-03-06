@@ -1,0 +1,31 @@
+name: BUILD-0
+true:
+  push:
+    branches:
+    - '**'
+jobs:
+  buildPKGBUILD:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - id: makepkg
+      name: Build PKGBUILD
+      uses: ./build_pkgbuild_action
+      with:
+        aurDeps: true
+        pkgdir: ./pkgs/${{ matrix.PKGBUILDs }}
+    - name: Zip directory
+      run: zip ${{ matrix.PKGBUILDs }}.zip ./pkgs/${{ matrix.PKGBUILDs }}/pkg/* -r
+    - uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true
+        artifacts: ${{ matrix.PKGBUILDs }}.zip
+        tag: packages
+        token: ${{ secrets.GITHUB_TOKEN }}
+    strategy:
+      fail-fast: false
+      matrix:
+        PKGBUILDs:
+        - openssl-3.0
+        - ace
