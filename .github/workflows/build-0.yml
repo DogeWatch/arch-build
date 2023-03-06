@@ -11,7 +11,8 @@ jobs:
         aurDeps: true
         pkgdir: ./pkgs/${{ matrix.PKGBUILDs }}
     - name: Zip directory
-      run: zip ${{ matrix.PKGBUILDs }}.zip ./pkgs/${{ matrix.PKGBUILDs }}/pkg/* -r
+      run: cd ./pkgs && zip ../${{ matrix.PKGBUILDs }}.zip ./${{ matrix.PKGBUILDs
+        }}/pkg/* -r
     - uses: ncipollo/release-action@v1
       with:
         allowUpdates: true

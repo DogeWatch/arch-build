@@ -9,8 +9,6 @@
 *.log.*
 *.sig
 
-pkg/
-src/
 !.gitignore
 .idea/*
 .vscode/*
